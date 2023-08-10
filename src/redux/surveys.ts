@@ -63,13 +63,13 @@ const surveysSlice = createSlice({
       .addCase(create.fulfilled, (state, action) => {
         state.status = "succeeded";
         // Add new survey to the array
-        console.log('survey created', action.payload)
         state.surveys.push(action.payload);
       })
       .addCase(remove.fulfilled, (state, action) => {
         state.status = "succeeded";
         // Remove survey from the array
-        const index = state.surveys.map(s=>s.id.toString()).indexOf(action.payload.id);
+        const surveyIds = state.surveys.map(s=>s.id.toString());
+        const index = surveyIds.indexOf(action.payload.id);
         if (index >= 0) {
           state.surveys.splice(index, 1);
         }
