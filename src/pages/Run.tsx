@@ -28,7 +28,6 @@ const Run = () => {
         });    
 
     return (<>
-        <h1>{survey.name}</h1>
         <Survey model={model}/>
     </>);
 }
