@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { create, load, remove } from '../redux/surveys'
-import { useReduxDispatch, useReduxSelector } from '../redux'
+import { AppDispatch, useReduxDispatch, useReduxSelector } from '../redux'
 import { Link } from 'react-router-dom'
 import './Surveys.css'
 
 const Surveys = (): React.ReactElement => {
     const surveys = useReduxSelector(state => state.surveys.surveys)
     const dispatch = useReduxDispatch()
-
     const postStatus = useReduxSelector(state => state.surveys.status)
+    //a hack to help reload surveys on focus of the screen
+    const dispatchRef = useRef<AppDispatch>()
 
     useEffect(() => {
-      if (postStatus === 'idle') {
-        dispatch(load())
+      if (postStatus === 'idle' || dispatchRef.current !== dispatch) {
+        dispatch(load());
+        dispatchRef.current = dispatch;
       }
     }, [postStatus, dispatch])    
 

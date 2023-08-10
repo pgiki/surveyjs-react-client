@@ -1,13 +1,21 @@
 import { useParams } from 'react-router'
-import { useReduxSelector } from '../redux';
+import { useReduxDispatch, useReduxSelector } from '../redux';
 import Viewer from '../components/Viewer'
+import { useEffect } from 'react';
+import { get } from '../redux/surveys';
 
 const Results = () => {
     const { id } = useParams();
-    const surveys = useReduxSelector(state => state.surveys.surveys)
-    const survey = surveys.filter(s => s.id === id)[0]
+    const dispatch = useReduxDispatch()
+    const survey = useReduxSelector(state => state.surveys.selectedSurvey)
+
+    useEffect(()=>{
+        dispatch(get(id as string))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id])
+
     return (<>
-        <h1>{'\'' + survey.name + '\' results'}</h1>
+        <h1>{'\'' + survey?.name + '\' results'}</h1>
         <div className='sjs-results-container'>
             <Viewer id={id as string}/>
         </div>

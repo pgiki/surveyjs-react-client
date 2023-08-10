@@ -1,12 +1,14 @@
 export interface ISurveyDefinition {
     id: string,
     name: string,
+    postId?: string,
     json: any
 }
 
 export const defaultJSON = {
     id: '',
     name: 'New Survey',
+    postId: '',
     json: {
         elements: [
             { type: 'radiogroup', name: 'question1', choices: [ '1', '2', '3' ] }
@@ -642,5 +644,4 @@ export const survey2Results = [
     {'member_array_employer':[{}],'partner_array_employer':[{}],'maritalstatus_c':'Married','member_receives_income_from_employment':'0','partner_receives_income_from_employment':'0'},
     {'member_array_employer':[{}],'partner_array_employer':[{}],'maritalstatus_c':'Single','member_receives_income_from_employment':'1','member_type_of_employment':['Self employment'],'member_seasonal_intermittent_or_contract_work':'0'}
 ];
-
-export var apiBaseAddress = '/api';
+export const apiBaseAddress = '/api/v1/Survey';

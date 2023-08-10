@@ -1,6 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { apiBaseAddress } from '../models/survey'
+axios.defaults.xsrfHeaderName = "X-CSRFToken"
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.withCredentials = true
 
 export const load = createAsyncThunk('results/load', async (id: string) => {
     const response = await axios.get(apiBaseAddress + '/results?postId=' + id)
